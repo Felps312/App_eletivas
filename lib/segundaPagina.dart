@@ -4,6 +4,12 @@ import 'package:flutter/material.dart';
 class SegundaPagina extends StatefulWidget {
   const SegundaPagina({key}) : super(key: key);
 
+  static MaterialPageRoute route() {
+    return MaterialPageRoute(
+      builder: (_) => SegundaPagina(),
+    );
+  }
+
   @override
   _SegundaPaginaState createState() => _SegundaPaginaState();
 }
