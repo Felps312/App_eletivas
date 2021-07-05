@@ -3,16 +3,18 @@ import 'package:flutter/services.dart';
 import 'home.dart';
 
 
+
 void main() {
   WidgetsFlutterBinding.ensureInitialized();
   SystemChrome.setPreferredOrientations([DeviceOrientation.portraitUp]);
+
   runApp(MyApp());
 }
 
  class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
-    var titulo = 'App';
+    var titulo = 'Saúde';
 
     return MaterialApp(
       title: titulo,

@@ -1,4 +1,4 @@
-import 'package:app_eletivas/checkbox_state.dart';
+import 'checkbox_state.dart';
 import 'package:flutter/material.dart';
 
 class SegundaPagina extends StatefulWidget {
@@ -15,6 +15,7 @@ class SegundaPagina extends StatefulWidget {
 }
 
 class _SegundaPaginaState extends State<SegundaPagina> {
+
   final todasMetasDiarias = CheckboxState(title: 'Selecionar todas as metas');
 
   final metasDiarias = {
@@ -25,7 +26,7 @@ class _SegundaPaginaState extends State<SegundaPagina> {
     CheckboxState(title: 'Fazer pausas entre as tarefas do dia'),
     CheckboxState(title: 'Interagir com pessoas'),
   };
-
+    
   Widget buildSingleCheckbox(CheckboxState checkbox) {
     return CheckboxListTile(
       title: Text(checkbox.title),
@@ -35,6 +36,7 @@ class _SegundaPaginaState extends State<SegundaPagina> {
           checkbox.value = value;
           todasMetasDiarias.value = 
           metasDiarias.every((meta) => meta.value);
+          if (todasMetasDiarias.value) metasConcluidas();
         });
       },
     );
@@ -49,20 +51,32 @@ class _SegundaPaginaState extends State<SegundaPagina> {
   }
 
   void toggleGroupCheckbox(bool value) {
-    if (value == null) return;
-    AlertDialog(
-            title: Text('Parabéns, você concluiu todas as tarefas!'),
-            actions: <Widget>[
-              TextButton(
-                child: Text('Obrigado!'),
-                onPressed: () => Navigator.of(context).pop(),
-          )
-        ],
-      );
+    
     setState(() {
           todasMetasDiarias.value = value;
           metasDiarias.forEach((meta) {meta.value = value;});
     });
+    if (value == true)
+       metasConcluidas();
+
+
+  }
+
+   metasConcluidas() {
+    showDialog(
+            context: context,
+            barrierDismissible: false,
+            builder: (context) => AlertDialog(
+              title: Text('Parabéns!', textAlign: TextAlign.center,),
+              content: Text('Todas as tarefas foram concluidas!'),
+              actions: [
+                TextButton(
+                  child: Text('Obrigado', textScaleFactor: 1.5,),
+                  onPressed: () {Navigator.of(context).pop();}, 
+                )
+              ]
+            )
+          );
   }
 
   AppBar appBar() {
@@ -72,6 +86,7 @@ class _SegundaPaginaState extends State<SegundaPagina> {
   }
   
   Widget build(BuildContext context) {
+  
     return Scaffold(
       appBar: appBar(),
       body: ListView(
@@ -80,6 +95,7 @@ class _SegundaPaginaState extends State<SegundaPagina> {
           buildGroupCheckBox(todasMetasDiarias),
           Divider(color: Colors.white,),
           ...metasDiarias.map(buildSingleCheckbox).toList(),
+          Divider(color: Colors.white,),
         ],
       )
     ); 

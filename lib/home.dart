@@ -6,7 +6,7 @@ import 'calculadoraIMC.dart';
 class MyHomePage extends StatefulWidget {
   MyHomePage({Key key, this.title}) : super(key: key);
   final String title;
-
+  
   @override
   _MyHomePageState createState() => _MyHomePageState();
 }
@@ -56,6 +56,7 @@ class _MyHomePageState extends State<MyHomePage> {
       },
       tooltip: 'Calcular',
       child: Icon(Icons.calculate),
+      backgroundColor: Colors.teal.shade400,
     );  
   }
 
@@ -146,7 +147,7 @@ class _MyHomePageState extends State<MyHomePage> {
         onPressed: () {
           Navigator.push(
             context,
-            MaterialPageRoute(builder: (BuildContext context) => SegundaPagina()),
+            SegundaPagina.route(),
           );
         },
       ),
