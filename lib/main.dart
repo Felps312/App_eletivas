@@ -14,13 +14,14 @@ void main() {
  class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
-    var titulo = 'Saúde';
+    var titulo = 'Índice de massa corporal';
 
     return MaterialApp(
       title: titulo,
       theme: ThemeData.dark().copyWith(
         primaryColor: Colors.teal,
         unselectedWidgetColor: Colors.white,
+
       ),
       home: MyHomePage(title: titulo),
       debugShowCheckedModeBanner: false,

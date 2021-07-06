@@ -26,8 +26,8 @@ class _MyHomePageState extends State<MyHomePage> {
     
 
     setState(() {
-          _resultado = 'Informe peso, altura e idade';
-        });
+      _resultado = 'Informe peso, altura e idade';
+    });
   }
 
   @override
@@ -43,21 +43,36 @@ class _MyHomePageState extends State<MyHomePage> {
     var calculadoraIMC = new CalculadoraIMC(altura, peso, idade);
 
     setState(() {
-          _resultado = calculadoraIMC.classificar();
-        });
+      _resultado = calculadoraIMC.classificar();
+    });
   }
 
-  FloatingActionButton botaoDeCalculo() {
+  FloatingActionButton navegarSegundaPagina() {
     return FloatingActionButton(
+      tooltip: 'Metas diárias',
+      child: Icon(Icons.assignment_outlined),
+      backgroundColor: Colors.teal.shade400,
+      onPressed: () {
+        Navigator.push(
+          context,
+          SegundaPagina.route(),
+        );
+      },
+    );  
+  }
+
+  IconButton botaoDeCalcular() {
+    return IconButton(
+      icon: Icon(Icons.calculate),
+      tooltip: 'Calcular IMC',
       onPressed: () {
         if (_chaveFormulario.currentState.validate()) {
           calcularIMC();
         }
       },
-      tooltip: 'Calcular',
-      child: Icon(Icons.calculate),
-      backgroundColor: Colors.teal.shade400,
-    );  
+      iconSize: 80,
+      color: Colors.teal.shade400,
+    );
   }
 
   IconButton botaoDeLimpar() {
@@ -125,6 +140,7 @@ class _MyHomePageState extends State<MyHomePage> {
             controller: _idadeEdit,
           ),
           textoResultado(),
+          botaoDeCalcular(),
         ],
       ),
     );
@@ -138,19 +154,7 @@ class _MyHomePageState extends State<MyHomePage> {
         padding: EdgeInsets.all(20.0),
         child: formulario()
       ),
-      floatingActionButton:  botaoDeCalculo(),
-      bottomNavigationBar: IconButton(
-        icon: Icon(Icons.add),
-        iconSize: 30,
-        tooltip: 'Ir para próxima página',
-        alignment: Alignment.topCenter,
-        onPressed: () {
-          Navigator.push(
-            context,
-            SegundaPagina.route(),
-          );
-        },
-      ),
+      floatingActionButton: navegarSegundaPagina(),
     );
   }
 }
